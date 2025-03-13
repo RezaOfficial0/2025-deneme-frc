@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Elevator extends SubsystemBase {
-    private final PWMTalonFX elevatorMotor = new PWMTalonFX(0); // PWM port 0
-    private final Encoder elevatorEncoder = new Encoder(0, 1); // DIO ports 0 and 1
-    private final PIDController pidController = new PIDController(0.1, 0, 0); // Tune these values
+    private final PWMTalonFX elevatorMotor = new PWMTalonFX(0);
+    private final Encoder elevatorEncoder = new Encoder(0, 1);
+    private final PIDController pidController = new PIDController(0.1, 0, 0);
 
-    private static final double TOLERANCE = 0.5; // Inches
-    private static final double DISTANCE_PER_PULSE = 0.01; // Conversion factor for your encoder
+    private static final double TOLERANCE = 0.5; 
+    private static final double DISTANCE_PER_PULSE = 0.01;
 
     private double setpoint = 0.0;
 
@@ -33,7 +33,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public double getCurrentHeight() {
-        return elevatorEncoder.getDistance(); // Returns height in inches
+        return elevatorEncoder.getDistance(); 
     }
 
     public boolean atSetpoint() {

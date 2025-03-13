@@ -3,10 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
-import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.MoveToHeight;
-import frc.robot.subsystems.Drive.DriveSubsystem;
+import frc.robot.commands.RotatePivot;
+import frc.robot.subsystems.BargeIntake;
 import frc.robot.subsystems.Elevator.Elevator;
 
 
@@ -26,19 +25,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   //Subsystems
      private final Elevator elevator = new Elevator();
-      private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+     private final BargeIntake intake = new BargeIntake(1,2,3);
+
     private final Joystick joystick = new Joystick(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    driveSubsystem.setDefaultCommand(new DefaultDriveCommand(
-      driveSubsystem,
-      () -> -driverController.getRawAxis(1), // Forward/Backward
-      () -> -driverController.getRawAxis(0), // Left/Right
-      () -> -driverController.getRawAxis(4)  // Rotation
-  ));
+
   }
 
   /**
@@ -53,6 +48,7 @@ public class RobotContainer {
   private void configureBindings() {
      new JoystickButton(joystick, 1).onTrue(new MoveToHeight(elevator, 10)); // Move to 10 inches
         new JoystickButton(joystick, 2).onTrue(new MoveToHeight(elevator, 30)); // Move to 30 inches
+        new JoystickButton(joystick,3).onTrue(new RotatePivot(intake, 90)); 
   
   
        
@@ -61,6 +57,9 @@ public class RobotContainer {
   
   public Elevator getElevator() {
     return elevator;
+}
+public BargeIntake getBargeIntake() {
+  return intake;
 }
 
   public Command getAutonomousCommand() {
